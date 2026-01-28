@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in | Panierstore</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-card">
+      <a class="back-link" href="index .html"><i class="fas fa-arrow-left"></i> Back</a>
+      <h1>Log in</h1>
+      <p>Welcome back. Enter your details to access your store.</p>
+      <form class="auth-form" action="/api/login" method="post">
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@email.com" required />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" required />
+        </div>
+        <div class="auth-actions">
+          <button class="auth-submit" type="submit">Log in</button>
+          <a class="auth-link" href="try-for-free.html">No account? Try for free</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

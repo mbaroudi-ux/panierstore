@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Try for free | Panierstore</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-card">
+      <a class="back-link" href="index .html"><i class="fas fa-arrow-left"></i> Back</a>
+      <h1>Try for free</h1>
+      <p>Create your account and start building your online store.</p>
+      <form class="auth-form" action="/api/register" method="post">
+        <div>
+          <label for="full-name">Full name</label>
+          <input id="full-name" name="full_name" type="text" placeholder="Your name" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@email.com" required />
+        </div>
+        <div>
+          <label for="store">Store name</label>
+          <input id="store" name="store_name" type="text" placeholder="My store" required />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Create a password" required />
+        </div>
+        <div class="auth-actions">
+          <button class="auth-submit" type="submit">Create account</button>
+          <a class="auth-link" href="login.html">Already have an account? Log in</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,16 +1,17 @@
-const mysql = require("mysql2/promise");
+const { createClient } = require("@supabase/supabase-js");
 
-let pool;
+let client;
 
-function getPool() {
-  if (!pool) {
-    const url = process.env.DATABASE_URL;
-    if (!url) {
-      throw new Error("DATABASE_URL is not set");
+function getSupabase() {
+  if (!client) {
+    const url = process.env.SUPABASE_URL;
+    const anonKey = process.env.SUPABASE_ANON_KEY;
+    if (!url || !anonKey) {
+      throw new Error("SUPABASE_URL or SUPABASE_ANON_KEY is not set");
     }
-    pool = mysql.createPool(url);
+    client = createClient(url, anonKey);
   }
-  return pool;
+  return client;
 }
 
-module.exports = { getPool };
+module.exports = { getSupabase };

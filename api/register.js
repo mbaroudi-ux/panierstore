@@ -1,5 +1,4 @@
-const bcrypt = require("bcryptjs");
-const { getPool } = require("./_db");
+const { getSupabase } = require("./_db");
 const querystring = require("querystring");
 
 function readBody(req) {
@@ -40,12 +39,24 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const password_hash = await bcrypt.hash(password, 10);
-    const pool = getPool();
-    await pool.execute(
-      "INSERT INTO users (full_name, email, store_name, password_hash) VALUES (?, ?, ?, ?)",
-      [full_name, email, store_name, password_hash]
-    );
+    const supabase = getSupabase();
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name,
+          store_name
+        }
+      }
+    });
+
+    if (error) {
+      res.writeHead(302, { Location: "/try-for-free.html" });
+      res.end();
+      return;
+    }
+
     res.writeHead(302, { Location: "/index.html" });
     res.end();
   } catch (error) {

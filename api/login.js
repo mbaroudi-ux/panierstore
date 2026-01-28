@@ -1,5 +1,4 @@
-const bcrypt = require("bcryptjs");
-const { getPool } = require("./_db");
+const { getSupabase } = require("./_db");
 const querystring = require("querystring");
 
 function readBody(req) {
@@ -40,20 +39,19 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const pool = getPool();
-    const [rows] = await pool.execute(
-      "SELECT password_hash FROM users WHERE email = ? LIMIT 1",
-      [email]
-    );
+    const supabase = getSupabase();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
 
-    const user = rows && rows[0];
-    if (user && (await bcrypt.compare(password, user.password_hash))) {
-      res.writeHead(302, { Location: "/index.html" });
+    if (error) {
+      res.writeHead(302, { Location: "/login.html" });
       res.end();
       return;
     }
 
-    res.writeHead(302, { Location: "/login.html" });
+    res.writeHead(302, { Location: "/index.html" });
     res.end();
   } catch (error) {
     res.writeHead(302, { Location: "/login.html" });

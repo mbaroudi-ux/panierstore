@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "Static site with Vercel serverless auth",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "mysql2": "^3.11.4"
+    "@supabase/supabase-js": "^2.49.1"
   }
 }

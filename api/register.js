@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
       "INSERT INTO users (full_name, email, store_name, password_hash) VALUES (?, ?, ?, ?)",
       [full_name, email, store_name, password_hash]
     );
-    res.writeHead(302, { Location: "/index%20.html" });
+    res.writeHead(302, { Location: "/index.html" });
     res.end();
   } catch (error) {
     res.writeHead(302, { Location: "/try-for-free.html" });

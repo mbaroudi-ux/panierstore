@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 
     const user = rows && rows[0];
     if (user && (await bcrypt.compare(password, user.password_hash))) {
-      res.writeHead(302, { Location: "/index%20.html" });
+      res.writeHead(302, { Location: "/index.html" });
       res.end();
       return;
     }

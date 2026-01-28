@@ -22,7 +22,7 @@ $user = $stmt->fetch();
 if ($user && password_verify($password, $user["password_hash"])) {
   $_SESSION["user_id"] = $user["id"];
   $_SESSION["user_name"] = $user["full_name"];
-  header("Location: index .html");
+  header("Location: index.html");
   exit;
 }
 

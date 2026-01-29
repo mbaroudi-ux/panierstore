@@ -64,7 +64,8 @@ module.exports = async (req, res) => {
       return;
     }
 
-    res.writeHead(302, { Location: "/index.html" });
+    const displayName = encodeURIComponent(full_name);
+    res.writeHead(302, { Location: `/index.html?name=${displayName}` });
     res.end();
   } catch (error) {
     res.writeHead(302, { Location: "/try-for-free.html?error=server" });

@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
 
   try {
     const supabase = getSupabase();
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     });
@@ -58,7 +58,10 @@ module.exports = async (req, res) => {
       return;
     }
 
-    res.writeHead(302, { Location: "/index.html" });
+    const user = data && data.user;
+    const metaName = user && user.user_metadata && user.user_metadata.full_name;
+    const displayName = encodeURIComponent(metaName || (user && user.email) || "Account");
+    res.writeHead(302, { Location: `/index.html?name=${displayName}` });
     res.end();
   } catch (error) {
     res.writeHead(302, { Location: "/login.html?error=server" });

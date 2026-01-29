@@ -23,10 +23,13 @@
         </ul>
       </nav>
       <div>
-        <ul>
+        <ul id="auth-links">
           <li><a class="login-link" href="login.html">Log in</a></li>
           <li><a id="Try-for-free-btn" href="try-for-free.html">Try for free</a></li>
         </ul>
+        <div class="user-info" id="user-info" hidden>
+          Welcome, <span id="user-name"></span>
+        </div>
       </div>
     </header>
 
@@ -109,6 +112,27 @@
       </ul>
     </div>
   </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const nameParam = params.get("name");
+    if (nameParam) {
+      localStorage.setItem("ps_user_name", decodeURIComponent(nameParam));
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+
+    const storedName = localStorage.getItem("ps_user_name");
+    const authLinks = document.getElementById("auth-links");
+    const userInfo = document.getElementById("user-info");
+    const userName = document.getElementById("user-name");
+
+    if (storedName && authLinks && userInfo && userName) {
+      userName.textContent = storedName;
+      authLinks.style.display = "none";
+      userInfo.hidden = false;
+    }
+  </script>
 
 </body>
 </html>

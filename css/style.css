@@ -95,6 +95,11 @@ img {
   background-color: rgba(16, 36, 47, 0.08);
 }
 
+.user-info {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
 .section1  {
 padding-bottom: 100px;
 }

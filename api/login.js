@@ -29,11 +29,17 @@ module.exports = async (req, res) => {
     return;
   }
 
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+    res.writeHead(302, { Location: "/login.html?error=config" });
+    res.end();
+    return;
+  }
+
   const body = req.body || (await readBody(req));
   const { email, password } = body;
 
   if (!email || !password) {
-    res.writeHead(302, { Location: "/login.html" });
+    res.writeHead(302, { Location: "/login.html?error=missing" });
     res.end();
     return;
   }
@@ -46,7 +52,7 @@ module.exports = async (req, res) => {
     });
 
     if (error) {
-      res.writeHead(302, { Location: "/login.html" });
+      res.writeHead(302, { Location: "/login.html?error=invalid" });
       res.end();
       return;
     }
@@ -54,7 +60,7 @@ module.exports = async (req, res) => {
     res.writeHead(302, { Location: "/index.html" });
     res.end();
   } catch (error) {
-    res.writeHead(302, { Location: "/login.html" });
+    res.writeHead(302, { Location: "/login.html?error=server" });
     res.end();
   }
 };

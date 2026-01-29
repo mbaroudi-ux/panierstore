@@ -14,6 +14,7 @@
       <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
       <h1>Try for free</h1>
       <p>Create your account and start building your online store.</p>
+      <div class="auth-error" id="auth-error" hidden></div>
       <form class="auth-form" action="/api/register" method="post">
         <div>
           <label for="full-name">Full name</label>
@@ -38,5 +39,20 @@
       </form>
     </section>
   </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+    const errorBox = document.getElementById("auth-error");
+    if (error && errorBox) {
+      const messages = {
+        config: "Configuration serveur manquante. Réessaie plus tard.",
+        missing: "Merci de remplir tous les champs.",
+        signup: "Impossible de créer le compte. Vérifie l’email.",
+        server: "Erreur serveur. Réessaie plus tard."
+      };
+      errorBox.textContent = messages[error] || "Erreur. Réessaie.";
+      errorBox.hidden = false;
+    }
+  </script>
 </body>
 </html>

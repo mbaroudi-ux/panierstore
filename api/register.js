@@ -29,11 +29,17 @@ module.exports = async (req, res) => {
     return;
   }
 
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+    res.writeHead(302, { Location: "/try-for-free.html?error=config" });
+    res.end();
+    return;
+  }
+
   const body = req.body || (await readBody(req));
   const { full_name, email, store_name, password } = body;
 
   if (!full_name || !email || !store_name || !password) {
-    res.writeHead(302, { Location: "/try-for-free.html" });
+    res.writeHead(302, { Location: "/try-for-free.html?error=missing" });
     res.end();
     return;
   }
@@ -52,7 +58,7 @@ module.exports = async (req, res) => {
     });
 
     if (error) {
-      res.writeHead(302, { Location: "/try-for-free.html" });
+      res.writeHead(302, { Location: "/try-for-free.html?error=signup" });
       res.end();
       return;
     }
@@ -60,7 +66,7 @@ module.exports = async (req, res) => {
     res.writeHead(302, { Location: "/index.html" });
     res.end();
   } catch (error) {
-    res.writeHead(302, { Location: "/try-for-free.html" });
+    res.writeHead(302, { Location: "/try-for-free.html?error=server" });
     res.end();
   }
 };

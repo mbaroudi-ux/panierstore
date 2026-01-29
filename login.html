@@ -14,6 +14,7 @@
       <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
       <h1>Log in</h1>
       <p>Welcome back. Enter your details to access your store.</p>
+      <div class="auth-error" id="auth-error" hidden></div>
       <form class="auth-form" action="/api/login" method="post">
         <div>
           <label for="email">Email</label>
@@ -30,5 +31,20 @@
       </form>
     </section>
   </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+    const errorBox = document.getElementById("auth-error");
+    if (error && errorBox) {
+      const messages = {
+        config: "Configuration serveur manquante. Réessaie plus tard.",
+        missing: "Merci de remplir tous les champs.",
+        invalid: "Email ou mot de passe incorrect.",
+        server: "Erreur serveur. Réessaie plus tard."
+      };
+      errorBox.textContent = messages[error] || "Erreur. Réessaie.";
+      errorBox.hidden = false;
+    }
+  </script>
 </body>
 </html>

@@ -42,6 +42,7 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const error = params.get("error");
+    const reason = params.get("reason");
     const errorBox = document.getElementById("auth-error");
     if (error && errorBox) {
       const messages = {
@@ -50,7 +51,8 @@
         signup: "Impossible de créer le compte. Vérifie l’email.",
         server: "Erreur serveur. Réessaie plus tard."
       };
-      errorBox.textContent = messages[error] || "Erreur. Réessaie.";
+      const baseMessage = messages[error] || "Erreur. Réessaie.";
+      errorBox.textContent = reason ? `${baseMessage} (${decodeURIComponent(reason)})` : baseMessage;
       errorBox.hidden = false;
     }
   </script>

@@ -58,7 +58,8 @@ module.exports = async (req, res) => {
     });
 
     if (error) {
-      res.writeHead(302, { Location: "/try-for-free.html?error=signup" });
+      const reason = encodeURIComponent(error.message || "signup_failed");
+      res.writeHead(302, { Location: `/try-for-free.html?error=signup&reason=${reason}` });
       res.end();
       return;
     }

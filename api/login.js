@@ -52,7 +52,8 @@ module.exports = async (req, res) => {
     });
 
     if (error) {
-      res.writeHead(302, { Location: "/login.html?error=invalid" });
+      const reason = encodeURIComponent(error.message || "invalid_credentials");
+      res.writeHead(302, { Location: `/login.html?error=invalid&reason=${reason}` });
       res.end();
       return;
     }
